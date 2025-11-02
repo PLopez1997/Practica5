@@ -1,8 +1,8 @@
 import streamlit as st
 from modulos.config.conexion import obtener_conexion
-from modulos. venta         import mostrar_venta
 
-def verificar_usuario(Usuario, Contra):
+
+def verificar_usuario(usuario, contrasena):
     con = obtener_conexion()
     if not con:
         st.error("⚠️ No se pudo conectar a la base de datos.")
@@ -13,8 +13,8 @@ def verificar_usuario(Usuario, Contra):
 
     try:
         cursor = con.cursor()
-        query = "SELECT Usuario, Contra FROM Empleados WHERE Usuario = %s AND Contra = %s"
-        cursor.execute(query, (Usuario, Contra))
+        query = "SELECT Tipo_usuario FROM USUARIO WHERE usuario = %s AND contrasena = %s"
+        cursor.execute(query, (usuario, contrasena))
         result = cursor.fetchone()
         return result[0] if result else None
     finally:
@@ -28,15 +28,15 @@ def login():
     if st.session_state.get("conexion_exitosa"):
         st.success("✅ Conexión a la base de datos establecida correctamente.")
 
-    Usuario = st.text_input("Usuario", key="Usuario_input")
-    Contra = st.text_input("Contraseña", type="password", key="Contra_input")
+    usuario = st.text_input("Usuario", key="usuario_input")
+    contrasena = st.text_input("Contraseña", type="password", key="contrasena_input")
 
     if st.button("Iniciar sesión"):
-        tipo = verificar_usuario(Usuario, Contra)
+        tipo = verificar_usuario(usuario, contrasena)
         if tipo:
-            st.session_state["usuario"] = Usuario
+            st.session_state["usuario"] = usuario
             st.session_state["tipo_usuario"] = tipo
-            st.success(f"Bienvenido ({Usuario}) 👋")
+            st.success(f"Bienvenido ({tipo}) 👋")
             st.session_state["sesion_iniciada"] = True
             st.rerun()
         else:
