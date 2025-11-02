@@ -1,5 +1,6 @@
 import streamlit as st
 from modulos.config.conexion import obtener_conexion
+from datetime import datetime
 
 def mostrar_clientes():
     st.header("👤 Gestión de Clientes")
@@ -22,9 +23,11 @@ def mostrar_clientes():
                     st.warning("⚠ Debes ingresar al menos nombre y correo.")
                 else:
                     try:
+                        fecha_registro = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                         cursor.execute(
-                            "INSERT INTO Clientes (Nombre, Correo, Telefono, Direccion) VALUES (%s, %s, %s, %s)",
-                            (nombre, correo, telefono, direccion)
+                            "INSERT INTO Clientes (Nombre, Correo, Telefono, Direccion, FechaRegistro) "
+                            "VALUES (%s, %s, %s, %s, %s)",
+                            (nombre, correo, telefono, direccion, fecha_registro)
                         )
                         con.commit()
                         st.success(f"✅ Cliente registrado correctamente: {nombre}")
@@ -38,7 +41,8 @@ def mostrar_clientes():
 
         try:
             cursor.execute(
-                "SELECT ID, Nombre, Correo, Telefono, Direccion FROM Clientes ORDER BY ID DESC"
+                "SELECT ID, Nombre, Correo, Telefono, Direccion, FechaRegistro "
+                "FROM Clientes ORDER BY ID DESC"
             )
             resultados = cursor.fetchall()
 
@@ -51,8 +55,9 @@ def mostrar_clientes():
                             "Nombre": r[1],
                             "Correo": r[2],
                             "Teléfono": r[3],
-                            "Dirección": r[4]
-                        } 
+                            "Dirección": r[4],
+                            "Fecha Registro": r[5]
+                        }
                         for r in resultados
                     ]
                 )
@@ -69,4 +74,5 @@ def mostrar_clientes():
             cursor.close()
         if 'con' in locals():
             con.close()
+
 
