@@ -34,7 +34,7 @@ def mostrar_venta():
         st.subheader("📋 Lista de ventas registradas")
 
         try:
-            cursor.execute("SELECT Id_Venta, Producto, Cantidad FROM Ventas ORDER BY ID DESC")
+            cursor.execute("SELECT Id_Venta, Producto, Cantidad FROM Ventas ORDER BY Id_Venta DESC")
             resultados = cursor.fetchall()
 
             if resultados:
