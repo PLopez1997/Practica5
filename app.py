@@ -13,7 +13,7 @@ if "sesion_iniciada" in st.session_state and st.session_state["sesion_iniciada"]
     if seleccion == "Ventas":
         mostrar_venta()
     elif seleccion == "Productos": 
-        mostrar_producto()
+        mostrar_productos()
     elif seleccion == "Clientes":
         mostrar_cliente()
     elif seleccion == "Otra opción":
