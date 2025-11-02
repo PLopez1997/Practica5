@@ -37,13 +37,24 @@ def mostrar_clientes():
         st.subheader("📋 Lista de clientes registrados")
 
         try:
-            cursor.execute("SELECT ID, Nombre, Correo, Telefono, Direccion FROM Clientes ORDER BY ID DESC")
+            cursor.execute(
+                "SELECT ID, Nombre, Correo, Telefono, Direccion FROM Clientes ORDER BY ID DESC"
+            )
             resultados = cursor.fetchall()
 
             if resultados:
                 # Mostrar los registros en una tabla
                 st.dataframe(
-                    [{"ID": r[0], "Nombre": r[1], "Correo": r[2], "Teléfono": r[3], "Dirección": r[4]} for r in resultados]
+                    [
+                        {
+                            "ID": r[0],
+                            "Nombre": r[1],
+                            "Correo": r[2],
+                            "Teléfono": r[3],
+                            "Dirección": r[4]
+                        } 
+                        for r in resultados
+                    ]
                 )
             else:
                 st.info("ℹ No hay clientes registrados todavía.")
@@ -57,4 +68,5 @@ def mostrar_clientes():
         if 'cursor' in locals():
             cursor.close()
         if 'con' in locals():
-            con.close()
+            con.close()
+
