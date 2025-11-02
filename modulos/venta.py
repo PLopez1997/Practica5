@@ -34,7 +34,7 @@ def mostrar_venta():
         st.subheader("📋 Lista de ventas registradas")
 
         try:
-            cursor.execute("SELECT ID, Producto, Cantidad, FechaRegistro FROM Ventas ORDER BY ID DESC")
+            cursor.execute("SELECT ID_Venta, Producto, Cantidad, FechaRegistro FROM Ventas ORDER BY ID DESC")
             resultados = cursor.fetchall()
 
             if resultados:
@@ -42,7 +42,7 @@ def mostrar_venta():
                 st.dataframe(
                     [
                         {
-                            "ID": r[0],
+                            "ID_Venta": r[0],
                             "Producto": r[1],
                             "Cantidad": r[2],
                             "Fecha Registro": r[3]
