@@ -17,7 +17,7 @@ if "sesion_iniciada" in st.session_state and st.session_state["sesion_iniciada"]
     elif seleccion == "Productos": 
         mostrar_productos()
     elif seleccion == "Clientes":
-        mostrar_cliente()
+        mostrar_clientes()
     elif seleccion == "Otra opción":
         st.write("Has seleccionado otra opción.")  # Aquí podrías agregar el contenido de otras opciones
 
